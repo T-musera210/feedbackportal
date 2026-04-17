@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { FC, ChangeEvent, FormEvent } from "react";
+
 // Define the form data type
 interface FormData {
   email: string;
