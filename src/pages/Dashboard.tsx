@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 type Feedback = {
-  id: number;
+  _id: string; // 🔥 MongoDB uses _id
   email: string;
   customer: string;
   region: string[];
@@ -15,28 +16,41 @@ type Feedback = {
   benefit: string;
   additional: string;
   status: string;
+  assignedTo?: string;
 };
 
 export default function Dashboard() {
   const [feedbackList, setFeedbackList] = useState<Feedback[]>([]);
   const [selectedTicket, setSelectedTicket] = useState<Feedback | null>(null);
 
+  // ✅ FETCH FROM BACKEND
   useEffect(() => {
-    const data: Feedback[] =
-      JSON.parse(localStorage.getItem("feedback") || "[]");
-    setFeedbackList(data);
+    fetchFeedback();
   }, []);
 
-  const updateStatus = (id: number, newStatus: string) => {
-    const updated = feedbackList.map((item) =>
-      item.id === id ? { ...item, status: newStatus } : item
-    );
+  const fetchFeedback = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/feedback");
+      setFeedbackList(res.data);
+    } catch (error) {
+      console.error("Error fetching feedback:", error);
+    }
+  };
 
-    setFeedbackList(updated);
-    localStorage.setItem("feedback", JSON.stringify(updated));
+  // ✅ UPDATE STATUS (API)
+  const updateStatus = async (id: string, newStatus: string) => {
+    try {
+      await axios.put(`http://localhost:5000/feedback/${id}`, {
+        status: newStatus
+      });
 
-    if (selectedTicket?.id === id) {
-      setSelectedTicket({ ...selectedTicket, status: newStatus });
+      fetchFeedback(); // refresh list
+
+      if (selectedTicket?._id === id) {
+        setSelectedTicket({ ...selectedTicket, status: newStatus });
+      }
+    } catch (error) {
+      console.error("Error updating status:", error);
     }
   };
 
@@ -62,7 +76,7 @@ export default function Dashboard() {
             <tbody>
               {feedbackList.map((item) => (
                 <tr
-                  key={item.id}
+                  key={item._id}
                   onClick={() => setSelectedTicket(item)}
                   style={styles.row}
                 >
@@ -107,7 +121,7 @@ export default function Dashboard() {
               <div style={styles.actions}>
                 <button
                   style={styles.button}
-                  onClick={() => updateStatus(selectedTicket.id, "Open")}
+                  onClick={() => updateStatus(selectedTicket._id, "Open")}
                 >
                   Open
                 </button>
@@ -115,7 +129,7 @@ export default function Dashboard() {
                 <button
                   style={styles.button}
                   onClick={() =>
-                    updateStatus(selectedTicket.id, "In Progress")
+                    updateStatus(selectedTicket._id, "In Progress")
                   }
                 >
                   In Progress
@@ -123,7 +137,7 @@ export default function Dashboard() {
 
                 <button
                   style={styles.button}
-                  onClick={() => updateStatus(selectedTicket.id, "Done")}
+                  onClick={() => updateStatus(selectedTicket._id, "Done")}
                 >
                   Done
                 </button>
@@ -150,45 +164,37 @@ const styles: { [key: string]: React.CSSProperties } = {
     backgroundColor: "#f4f6f9",
     minHeight: "100vh"
   },
-
   title: {
     color: "#064dae",
     marginBottom: "20px"
   },
-
   card: {
     background: "#fff",
     borderRadius: "12px",
     padding: "20px",
     boxShadow: "0 2px 10px rgba(0,0,0,0.05)"
   },
-
   layout: {
     display: "flex",
     gap: "20px"
   },
-
   table: {
     width: "60%",
-    borderCollapse: "collapse"
+    borderCollapse: "collapse" as const
   },
-
   th: {
     textAlign: "left",
     padding: "12px",
     background: "#064dae",
     color: "#fff"
   },
-
   td: {
     padding: "12px",
     borderBottom: "1px solid #eee"
   },
-
   row: {
     cursor: "pointer"
   },
-
   panel: {
     width: "40%",
     padding: "20px",
@@ -196,7 +202,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     background: "#fafafa",
     border: "1px solid #eee"
   },
-
   badge: {
     padding: "5px 10px",
     borderRadius: "20px",
@@ -204,13 +209,11 @@ const styles: { [key: string]: React.CSSProperties } = {
     background: "#e6efff",
     color: "#064dae"
   },
-
   actions: {
     display: "flex",
     gap: "10px",
     marginTop: "15px"
   },
-
   button: {
     padding: "8px 12px",
     border: "none",
@@ -219,7 +222,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     background: "#064dae",
     color: "#fff"
   },
-
   close: {
     marginTop: "20px",
     background: "#ddd",

@@ -8,9 +8,7 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-/* =========================
-   🔗 CONNECT TO MONGODB
-========================= */
+/*   CONNECT TO MONGODB */
 
 mongoose.connect("mongodb+srv://admin:tabby210@cluster0.prfmly3.mongodb.net/feedbackDB?appName=Cluster0")
   .then(() => console.log("MongoDB connected 💙"))
@@ -18,9 +16,7 @@ mongoose.connect("mongodb+srv://admin:tabby210@cluster0.prfmly3.mongodb.net/feed
 
   
 
-/* =========================
-   🧱 SCHEMA + MODEL
-========================= */
+/*  SCHEMA + MODEL */
 
 const FeedbackSchema = new mongoose.Schema({
   email: String,
@@ -41,16 +37,14 @@ const FeedbackSchema = new mongoose.Schema({
 
 const Feedback = mongoose.model("Feedback", FeedbackSchema);
 
-/* =========================
-   🚀 ROUTES
-========================= */
+/*  ROUTES */
 
-// 👉 TEST
+//  TEST
 app.get("/", (req, res) => {
-  res.send("Backend is running 🚀");
+  res.send("Backend is running ");
 });
 
-// 👉 CREATE FEEDBACK
+//  CREATE FEEDBACK
 app.post("/feedback", async (req, res) => {
   try {
     const feedback = new Feedback(req.body);
@@ -62,7 +56,7 @@ app.post("/feedback", async (req, res) => {
   }
 });
 
-// 👉 GET ALL
+// GET ALL
 app.get("/feedback", async (req, res) => {
   try {
     const data = await Feedback.find().sort({ createdAt: -1 });
@@ -72,7 +66,7 @@ app.get("/feedback", async (req, res) => {
   }
 });
 
-// 👉 UPDATE STATUS
+//  UPDATE STATUS
 app.put("/feedback/:id", async (req, res) => {
   try {
     await Feedback.findByIdAndUpdate(req.params.id, {
@@ -85,7 +79,7 @@ app.put("/feedback/:id", async (req, res) => {
   }
 });
 
-// 👉 ASSIGN
+// ASSIGN
 app.put("/feedback/:id/assign", async (req, res) => {
   try {
     await Feedback.findByIdAndUpdate(req.params.id, {
@@ -98,9 +92,7 @@ app.put("/feedback/:id/assign", async (req, res) => {
   }
 });
 
-/* =========================
-   ▶️ START SERVER
-========================= */
+/* START SERVER */
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
