@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 type Feedback = {
-  _id: string; // 🔥 MongoDB uses _id
+  _id: string; //  MongoDB uses _id
   email: string;
   customer: string;
   region: string[];
@@ -23,7 +23,7 @@ export default function Dashboard() {
   const [feedbackList, setFeedbackList] = useState<Feedback[]>([]);
   const [selectedTicket, setSelectedTicket] = useState<Feedback | null>(null);
 
-  // ✅ FETCH FROM BACKEND
+  //  FETCH FROM BACKEND
   useEffect(() => {
     fetchFeedback();
   }, []);
@@ -37,7 +37,7 @@ export default function Dashboard() {
     }
   };
 
-  // ✅ UPDATE STATUS (API)
+  //  UPDATE STATUS (API)
   const updateStatus = async (id: string, newStatus: string) => {
     try {
       await axios.put(`http://localhost:5000/feedback/${id}`, {
@@ -157,7 +157,7 @@ export default function Dashboard() {
   );
 }
 
-// 🎨 STYLES
+//  STYLES
 const styles: { [key: string]: React.CSSProperties } = {
   page: {
     padding: "30px",
@@ -229,5 +229,36 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderRadius: "6px",
     border: "none",
     cursor: "pointer"
-  }
+  },
+hero: {
+  background: "#fff",
+  padding: "50px 40px",
+  borderRadius: "12px",
+  textAlign: "center",
+  marginBottom: "30px",
+  boxShadow: "0 2px 10px rgba(0,0,0,0.05)"
+},
+
+logo: {
+  width: "220px",
+  marginBottom: "25px"
+},
+
+heroTitle: {
+  fontSize: "42px",
+  fontWeight: 700,
+  color: "#2d2d2d",
+  marginBottom: "20px"
+},
+
+heroText: {
+  fontSize: "24px",
+  color: "#555",
+  fontStyle: "italic",
+  lineHeight: "1.5",
+  maxWidth: "950px",
+  margin: "0 auto"
+},
+  
 };
+

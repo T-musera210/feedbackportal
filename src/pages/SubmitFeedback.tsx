@@ -91,7 +91,24 @@ const SubmitFeedback: FC = () => {
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.title}>Submit Feedback</h2>
+     <div style={styles.hero}>
+  <img
+    src="/pesapal-logo.png"
+    alt="Pesapal"
+    style={styles.logo}
+  />
+
+  <h1 style={styles.heroTitle}>
+    Help us improve the Customers' Experience
+  </h1>
+
+  <p style={styles.heroText}>
+    We value your opinion and want to ensure that Pesapal products meet
+    customers' needs. Please take a moment to share feedback.
+  </p>
+</div>
+
+{/* <h2 style={styles.title}>Submit Feedback</h2> */}
 
       <form onSubmit={handleSubmit} style={styles.form}>
         <input
