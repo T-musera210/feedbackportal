@@ -20,7 +20,6 @@ mongoose.connect("mongodb+srv://admin:tabby210@cluster0.prfmly3.mongodb.net/feed
 
 const FeedbackSchema = new mongoose.Schema({
   email: String,
-  customer: String,
   merchant: String,
   region: [String],
   product: String,

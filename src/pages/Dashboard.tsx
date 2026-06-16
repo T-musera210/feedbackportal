@@ -4,7 +4,7 @@ import axios from "axios";
 type Feedback = {
   _id: string; //  MongoDB uses _id
   email: string;
-  customer: string;
+  merchant: string;
   region: string[];
   product: string;
   feedbackType: string;
@@ -80,7 +80,7 @@ export default function Dashboard() {
                   onClick={() => setSelectedTicket(item)}
                   style={styles.row}
                 >
-                  <td style={styles.td}>{item.customer}</td>
+                  <td style={styles.td}>{item.merchant}</td>
                   <td style={styles.td}>{item.product}</td>
                   <td style={styles.td}>{item.feedbackType}</td>
                   <td style={styles.td}>{item.urgency}</td>
@@ -97,8 +97,8 @@ export default function Dashboard() {
             <div style={styles.panel}>
               <h3 style={{ color: "#064dae" }}>Feedback Details</h3>
 
-              <p><strong>Customer:</strong> {selectedTicket.customer}</p>
               <p><strong>Email:</strong> {selectedTicket.email}</p>
+              <p><strong>Merchant:</strong> {selectedTicket.merchant}</p>
               <p><strong>Product:</strong> {selectedTicket.product}</p>
               <p><strong>Type:</strong> {selectedTicket.feedbackType}</p>
               <p><strong>Region:</strong> {selectedTicket.region.join(", ")}</p>

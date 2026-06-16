@@ -4,7 +4,7 @@ import axios from "axios";
 
 interface FormData {
   email: string;
-  customer: string;
+  merchant: string;
   region: string[];
   product: string;
   feedbackType: string;
@@ -20,7 +20,7 @@ interface FormData {
 const SubmitFeedback: FC = () => {
   const [formData, setFormData] = useState<FormData>({
     email: "",
-    customer: "",
+    merchant: "",
     region: [],
     product: "",
     feedbackType: "",
@@ -71,7 +71,7 @@ const SubmitFeedback: FC = () => {
       // reset form
       setFormData({
         email: "",
-        customer: "",
+        merchant: "",
         region: [],
         product: "",
         feedbackType: "",
@@ -119,7 +119,14 @@ const SubmitFeedback: FC = () => {
           required
           style={styles.input}
         />
-
+   <input
+          name="merchant"
+          placeholder="Merchant Name"
+          value={formData.merchant}
+          onChange={handleChange}
+          required
+          style={styles.input}
+        />
         {/* <input
           name="customer"
           placeholder="Your Name"
@@ -129,14 +136,7 @@ const SubmitFeedback: FC = () => {
           style={styles.input}
         /> */}
 
-        <input
-          name="merchant"
-          placeholder="Merchant Name"
-          value={formData.customer}
-          onChange={handleChange}
-          required
-          style={styles.input}
-        />
+     
 
         <div>
           <p>Region:</p>
