@@ -113,16 +113,25 @@ const SubmitFeedback: FC = () => {
       <form onSubmit={handleSubmit} style={styles.form}>
         <input
           name="email"
-          placeholder="Email"
+          placeholder="Your email address"
           value={formData.email}
           onChange={handleChange}
           required
           style={styles.input}
         />
 
-        <input
+        {/* <input
           name="customer"
-          placeholder="Customer Name"
+          placeholder="Your Name"
+          value={formData.customer}
+          onChange={handleChange}
+          required
+          style={styles.input}
+        /> */}
+
+        <input
+          name="merchant"
+          placeholder="Merchant Name"
           value={formData.customer}
           onChange={handleChange}
           required
@@ -152,9 +161,17 @@ const SubmitFeedback: FC = () => {
           style={styles.input}
         >
           <option value="">Select Product</option>
-          <option>Checkout</option>
-          <option>API</option>
-          <option>Dashboard</option>
+          <option>Pesapal Mobile</option>
+          <option>Sabi POS</option>
+          <option>Ecommerce</option>
+          <option>Merchant Dashboard</option>
+          <option>Ticketsasa</option>
+          <option>Openfloat</option>
+          <option>Reserveport</option>
+          <option>PFMS Forecourt Management</option>
+          <option>Oracle</option>
+          <option>Merchant Credit</option>
+          <option>Other</option>
         </select>
 
         <select
@@ -173,7 +190,7 @@ const SubmitFeedback: FC = () => {
 
         <textarea
           name="description"
-          placeholder="Describe the issue..."
+          placeholder="Describe the feedback/issue."
           value={formData.description}
           onChange={handleChange}
           required
