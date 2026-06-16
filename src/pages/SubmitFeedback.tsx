@@ -66,7 +66,7 @@ const SubmitFeedback: FC = () => {
       );
 
       console.log("Saved:", res.data);
-      alert("Feedback submitted 💙");
+      alert("Feedback submitted ");
 
       // reset form
       setFormData({
@@ -85,7 +85,7 @@ const SubmitFeedback: FC = () => {
       });
     } catch (error) {
       console.error("Error:", error);
-      alert("Something went wrong ❌");
+      alert("Something went wrong ");
     }
   };
 

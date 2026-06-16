@@ -11,7 +11,7 @@ app.use(express.json());
 /*   CONNECT TO MONGODB */
 
 mongoose.connect("mongodb+srv://admin:tabby210@cluster0.prfmly3.mongodb.net/feedbackDB?appName=Cluster0")
-  .then(() => console.log("MongoDB connected 💙"))
+  .then(() => console.log("MongoDB connected "))
   .catch((err) => console.log(err));
 
   
@@ -21,6 +21,7 @@ mongoose.connect("mongodb+srv://admin:tabby210@cluster0.prfmly3.mongodb.net/feed
 const FeedbackSchema = new mongoose.Schema({
   email: String,
   customer: String,
+  merchant: String,
   region: [String],
   product: String,
   feedbackType: String,
@@ -82,7 +83,7 @@ app.put("/feedback/:id", async (req, res) => {
 // ASSIGN
 app.put("/feedback/:id/assign", async (req, res) => {
   try {
-    await Feedback.findByIdAndUpdate(req.params.id, {
+    await Feedback .findByIdAndUpdate(req.params.id, {
       assignedTo: req.body.assignedTo
     });
 
