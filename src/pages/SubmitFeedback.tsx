@@ -61,7 +61,7 @@ const SubmitFeedback: FC = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/feedback",
+        "https://feedbackportal-opal.vercel.app/",
         formData
       );
 
